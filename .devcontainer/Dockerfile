@@ -1,4 +1,4 @@
-FROM ros:jazzy-ros-base
+FROM ros:humble-ros-base
 
 # Arguments for user creation
 ARG USERNAME=thing
@@ -31,5 +31,6 @@ RUN sudo apt-get update && sudo apt-get upgrade -y \
 
 # Source ROS environment automatically
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /home/$USERNAME/.bashrc
+
 
 
