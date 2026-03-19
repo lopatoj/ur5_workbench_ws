@@ -1,5 +1,7 @@
-.vscode/
-.zed/
 install/*
 build/*
 log/*
+.ccache/*
+
+.vscode/
+.zed/
