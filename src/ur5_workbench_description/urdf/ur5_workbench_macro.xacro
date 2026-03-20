@@ -1,12 +1,16 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro" />
+  <xacro:include filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_ft300.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_fts.ros2_control.xacro" />
 
   <xacro:macro
     name="ur5_workbench"
     params="
       parent
       *origin
+      include_ros2_control:=true
 
       thing1_joint_limits_parameters_file
       thing1_kinematics_parameters_file
@@ -45,6 +49,23 @@
     >
       <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:ur_robot>
+    <xacro:robotiq_ft300 parent="flange" tf_prefix="thing1_">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_ft300>
+    <xacro:if value="${include_ros2_control}">
+      <xacro:robotiq_fts_ros2_control
+        name="thing1_"
+        tf_prefix="thing1_"
+      />
+    </xacro:if>
+    <xacro:robotiq_gripper
+      name="thing1_robotiq_gripper"
+      parent="thing1_ft300_sensor"
+      prefix="thing1_"
+      include_ros2_control="${include_ros2_control}"
+    >
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_gripper>
 
     <link name="thing2_robot_mount" />
     <joint name="thing2_robot_mount_joint" type="fixed">
@@ -64,5 +85,22 @@
     >
       <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:ur_robot>
+    <xacro:robotiq_ft300 parent="flange" tf_prefix="thing2_">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_ft300>
+    <xacro:if value="${include_ros2_control}">
+      <xacro:robotiq_fts_ros2_control
+        name="thing2_"
+        tf_prefix="thing2_"
+      />
+    </xacro:if>
+    <xacro:robotiq_gripper
+      name="thing2_robotiq_gripper"
+      parent="thing2_ft300_sensor"
+      prefix="thing2_"
+      include_ros2_control="${include_ros2_control}"
+    >
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_gripper>
   </xacro:macro>
 </robot>

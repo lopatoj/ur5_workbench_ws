@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<robot name="ur5_workbench" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include
+    filename="$(find ur5_workbench_description)/urdf/ur5_workbench_macro.xacro"
+  />
+
+  <xacro:arg
+    name="thing1_joint_limits_parameters_file"
+    default="$(find ur_description)/config/ur5/joint_limits.yaml"
+  />
+  <xacro:arg
+    name="thing1_kinematics_parameters_file"
+    default="$(find ur_description)/config/ur5/default_kinematics.yaml"
+  />
+  <xacro:arg
+    name="thing1_physical_parameters_file"
+    default="$(find ur_description)/config/ur5/physical_parameters.yaml"
+  />
+  <xacro:arg
+    name="thing1_visual_parameters_file"
+    default="$(find ur_description)/config/ur5/visual_parameters.yaml"
+  />
+
+  <xacro:arg
+    name="thing2_joint_limits_parameters_file"
+    default="$(find ur_description)/config/ur5/joint_limits.yaml"
+  />
+  <xacro:arg
+    name="thing2_kinematics_parameters_file"
+    default="$(find ur_description)/config/ur5/default_kinematics.yaml"
+  />
+  <xacro:arg
+    name="thing2_physical_parameters_file"
+    default="$(find ur_description)/config/ur5/physical_parameters.yaml"
+  />
+  <xacro:arg
+    name="thing2_visual_parameters_file"
+    default="$(find ur_description)/config/ur5/visual_parameters.yaml"
+  />
+
+  <link name="world" />
+  <xacro:ur5_workbench
+    parent="world"
+    include_ros2_control="false"
+    thing1_joint_limits_parameters_file="$(arg thing1_joint_limits_parameters_file)"
+    thing1_kinematics_parameters_file="$(arg thing1_kinematics_parameters_file)"
+    thing1_physical_parameters_file="$(arg thing1_physical_parameters_file)"
+    thing1_visual_parameters_file="$(arg thing1_visual_parameters_file)"
+    thing2_joint_limits_parameters_file="$(arg thing2_joint_limits_parameters_file)"
+    thing2_kinematics_parameters_file="$(arg thing2_kinematics_parameters_file)"
+    thing2_physical_parameters_file="$(arg thing2_physical_parameters_file)"
+    thing2_visual_parameters_file="$(arg thing2_visual_parameters_file)"
+  >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:ur5_workbench>
+
+  <xacro:macro name="mujoco_joint" params="name initial_position">
+    <joint name="${name}">
+      <state_interface name="position">
+        <param name="initial_position">${initial_position}</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+      <control_interface name="position" />
+      <control_interface name="velocity" />
+      <control_interface name="effort" />
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="mujoco_ur5" params="prefix">
+    <xacro:mujoco_joint
+      name="${prefix}shoulder_pan_joint"
+      initial_position="0.0"
+    />
+    <xacro:mujoco_joint
+      name="${prefix}shoulder_lift_joint"
+      initial_position="0.0"
+    />
+    <xacro:mujoco_joint name="${prefix}elbow_joint" initial_position="0.0" />
+    <xacro:mujoco_joint name="${prefix}wrist_1_joint" initial_position="0.0" />
+    <xacro:mujoco_joint name="${prefix}wrist_2_joint" initial_position="0.0" />
+    <xacro:mujoco_joint name="${prefix}wrist_3_joint" initial_position="0.0" />
+    <xacro:mujoco_joint
+      name="${prefix}robotiq_85_left_knuckle_joint"
+      initial_position="0.0"
+    />
+    <!-- <sensor name="${prefix}robotiq_ft_frame_id">
+      <param name="mujoco_type">fts</param>
+      <param name="mujoco_sensor_name">${prefix}robotiq_ft_frame_id</param>
+      <state_interface name="force.x" />
+      <state_interface name="force.y" />
+      <state_interface name="force.z" />
+      <state_interface name="torque.x" />
+      <state_interface name="torque.y" />
+      <state_interface name="torque.z" />
+    </sensor> -->
+  </xacro:macro>
+
+  <ros2_control name="MujocoSystem" type="system">
+    <hardware>
+      <plugin>mujoco_ros2_control/MujocoSystemInterface</plugin>
+      <param
+        name="mujoco_model"
+      >$(find ur5_workbench_mujoco_config)/description/scene.xml</param>
+      <param name="sim_speed_factor">1.0</param>
+    </hardware>
+    <xacro:mujoco_ur5 prefix="thing1_" />
+    <xacro:mujoco_ur5 prefix="thing2_" />
+  </ros2_control>
+</robot>
