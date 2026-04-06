@@ -28,7 +28,7 @@ RUN if id -u $USER_UID >/dev/null 2>&1; then userdel $(id -un $USER_UID); fi
 
 # Create a non-root user with sudo access
 RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -s /bin/bash \
     && apt-get update \
     && apt-get install -y sudo \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
