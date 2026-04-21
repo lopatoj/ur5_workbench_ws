@@ -155,5 +155,10 @@
         </body>
       </body>
     </body>
+    <body name="falling_box">
+      <inertial pos="0 0 0" mass="0.01" diaginertia="1 1 1"/>
+      <joint name="falling_box_joint" type="free"/>
+      <geom size="0.025 0.025 0.025" type="box" contype="0" conaffinity="0" group="1" density="0"/>
+    </body>
   </worldbody>
 </mujoco>

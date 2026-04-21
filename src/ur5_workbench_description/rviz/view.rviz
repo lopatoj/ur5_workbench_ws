@@ -8,8 +8,9 @@ Panels:
         - /Status1
         - /Grid1
         - /RobotModel1
+        - /RobotModel1/Mass Properties1
       Splitter Ratio: 0.5
-    Tree Height: 730
+    Tree Height: 833
 Visualization Manager:
   Class: ""
   Displays:
@@ -62,24 +63,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
         thing1_base_link_inertia:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        thing1_camera_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        thing1_camera_mount_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        thing1_d405_bottom_screw_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        thing1_d405_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -162,10 +145,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         thing1_tool0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        thing1_tool_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -330,33 +309,33 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 0.7049885392189026
+      Distance: 1.969437837600708
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.23937705159187317
-        Y: -0.014844899997115135
-        Z: 0.07847394049167633
+        X: 0.13590863347053528
+        Y: 0.29615339636802673
+        Z: 1.0836995840072632
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.2152024805545807
+      Pitch: 0.5297972559928894
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 4.568553447723389
+      Yaw: 3.393554449081421
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 945
+  Height: 1048
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000001000000000000017c0000035bfc0200000001fb000000100044006900730070006c006100790073010000003b0000035b000000c700ffffff0000053e0000035b00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Width: 1728
+  QMainWindow State: 000000ff00000000fd00000001000000000000017c000003c2fc0200000001fb000000100044006900730070006c006100790073010000003b000003c2000000c700ffffff000005fe000003c200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1920
   X: 0
-  Y: 30
+  Y: 0

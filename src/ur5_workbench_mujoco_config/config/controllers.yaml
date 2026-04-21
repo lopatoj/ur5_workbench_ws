@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100
+    update_rate: 100 # Hz
 
 joint_state_broadcaster:
   ros__parameters:
@@ -39,10 +39,9 @@ force_torque_sensor_broadcaster2:
             CoG: [-6.25975791e-05, -6.71295872e-05, 5.38791162e-02]
             mass: 0.9208642730400001
 
-position_controller:
+joint_trajectory_controller:
   ros__parameters:
-    type: forward_command_controller/ForwardCommandController
-    interface_name: position
+    type: joint_trajectory_controller/JointTrajectoryController
     joints:
       - thing1_shoulder_pan_joint
       - thing1_shoulder_lift_joint
@@ -58,3 +57,8 @@ position_controller:
       - thing2_wrist_2_joint
       - thing2_wrist_3_joint
       - thing2_robotiq_85_left_knuckle_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity

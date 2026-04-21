@@ -17,9 +17,12 @@ services:
     environment:
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-1}
       - DISPLAY
-      - QT_X11_NO_MITSHM=1`**
+      - QT_X11_NO_MITSHM=1
       - RCUTILS_COLORIZED_OUTPUT=1
       - NVIDIA_DRIVER_CAPABILITIES=all
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/runtime-ur5_workbench}
+    devices:
+      - /dev/dri:/dev/dri
     runtime: nvidia
     deploy:
       resources:

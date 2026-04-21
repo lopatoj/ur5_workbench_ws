@@ -76,11 +76,11 @@ def generate_launch_description():
             parameters_file,
         ],
     )
-    position_controller = Node(
+    joint_trajectory_controller = Node(
         package="controller_manager",
         executable="spawner",
         arguments=[
-            "position_controller",
+            "joint_trajectory_controller",
             "--controller-manager",
             "/controller_manager",
             "--param-file",
@@ -125,7 +125,7 @@ def generate_launch_description():
             robot_state_publisher_node,
             mujoco_ros2_control_node,
             joint_state_broadcaster,
-            position_controller,
+            joint_trajectory_controller,
             fts_broadcaster1,
             fts_broadcaster2,
             rviz_node,

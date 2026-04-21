@@ -75,7 +75,10 @@
       initial_position="${-pi/2}"
     />
     <xacro:mujoco_joint name="${prefix}elbow_joint" initial_position="0.0" />
-    <xacro:mujoco_joint name="${prefix}wrist_1_joint" initial_position="${-pi/2}" />
+    <xacro:mujoco_joint
+      name="${prefix}wrist_1_joint"
+      initial_position="${-pi/2}"
+    />
     <xacro:mujoco_joint name="${prefix}wrist_2_joint" initial_position="0.0" />
     <xacro:mujoco_joint name="${prefix}wrist_3_joint" initial_position="0.0" />
     <xacro:mujoco_joint
@@ -96,90 +99,260 @@
 
   <mujoco_inputs>
     <raw_inputs>
-      <option integrator="implicitfast"/>
+      <option integrator="implicitfast" />
       <default>
-        <material specular="0.5" shininess="0.25"/>
-        <joint axis="0 1 0" range="-6.28319 6.28319" armature="0.1"/>
-        <position ctrlrange="-6.2831 6.2831"/>
+        <material specular="0.5" shininess="0.25" />
+        <joint axis="0 1 0" range="-6.28319 6.28319" armature="0.1" />
+        <position ctrlrange="-6.2831 6.2831" />
         <general biastype="affine" ctrlrange="-6.2831 6.2831" />
         <default class="size4">
-          <joint damping="10"/>
-          <general forcerange="-330 330" gainprm="100000" biasprm="0 -100000 -10000" />
+          <joint damping="10" />
+          <general
+            forcerange="-330 330"
+            gainprm="100000"
+            biasprm="0 -100000 -10000"
+          />
         </default>
         <default class="size3">
-          <joint damping="5"/>
-          <general forcerange="-150 150" gainprm="40000" biasprm="0 -40000 -4000" />
+          <joint damping="5" />
+          <general
+            forcerange="-150 150"
+            gainprm="40000"
+            biasprm="0 -40000 -4000"
+          />
           <default class="size3_limited">
-            <joint range="-3.1415 3.1415"/>
+            <joint range="-3.1415 3.1415" />
             <general ctrlrange="-3.1415 3.1415" />
           </default>
         </default>
         <default class="size2">
-          <joint damping="2"/>
-          <general forcerange="-56 56" gainprm="10000" biasprm="0 -10000 -1000" />
+          <joint damping="2" />
+          <general
+            forcerange="-56 56"
+            gainprm="10000"
+            biasprm="0 -10000 -1000"
+          />
         </default>
         <default class="visual">
-          <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+          <geom group="2" type="mesh" contype="0" conaffinity="0" />
         </default>
         <default class="collision">
-          <geom group="3" type="mesh"/>
+          <geom group="3" type="mesh" />
         </default>
       </default>
 
       <actuator>
-        <position class="size4" name="thing1_shoulder_pan_joint" joint="thing1_shoulder_pan_joint"/>
-        <position class="size4" name="thing1_shoulder_lift_joint" joint="thing1_shoulder_lift_joint"/>
-        <position class="size3_limited" name="thing1_elbow_joint" joint="thing1_elbow_joint"/>
-        <position class="size2" name="thing1_wrist_1_joint" joint="thing1_wrist_1_joint"/>
-        <position class="size2" name="thing1_wrist_2_joint" joint="thing1_wrist_2_joint"/>
-        <position class="size2" name="thing1_wrist_3_joint" joint="thing1_wrist_3_joint"/>
-        <position class="size2" name="thing1_robotiq_85_left_knuckle_joint" joint="thing1_robotiq_85_left_knuckle_joint"/>
+        <position
+          class="size4"
+          name="thing1_shoulder_pan_joint"
+          joint="thing1_shoulder_pan_joint"
+        />
+        <position
+          class="size4"
+          name="thing1_shoulder_lift_joint"
+          joint="thing1_shoulder_lift_joint"
+        />
+        <position
+          class="size3_limited"
+          name="thing1_elbow_joint"
+          joint="thing1_elbow_joint"
+        />
+        <position
+          class="size2"
+          name="thing1_wrist_1_joint"
+          joint="thing1_wrist_1_joint"
+        />
+        <position
+          class="size2"
+          name="thing1_wrist_2_joint"
+          joint="thing1_wrist_2_joint"
+        />
+        <position
+          class="size2"
+          name="thing1_wrist_3_joint"
+          joint="thing1_wrist_3_joint"
+        />
+        <position tendon="thing1_split" name="thing1_robotiq_85_left_knuckle_joint" kp="10000" dampratio="1.0" ctrlrange="0.0 0.79" forcerange="-150 150"/>
 
-        <position class="size4" name="thing2_shoulder_pan_joint" joint="thing2_shoulder_pan_joint"/>
-        <position class="size4" name="thing2_shoulder_lift_joint" joint="thing2_shoulder_lift_joint"/>
-        <position class="size3_limited" name="thing2_elbow_joint" joint="thing2_elbow_joint"/>
-        <position class="size2" name="thing2_wrist_1_joint" joint="thing2_wrist_1_joint"/>
-        <position class="size2" name="thing2_wrist_2_joint" joint="thing2_wrist_2_joint"/>
-        <position class="size2" name="thing2_wrist_3_joint" joint="thing2_wrist_3_joint"/>
-        <position class="size2" name="thing2_robotiq_85_left_knuckle_joint" joint="thing2_robotiq_85_left_knuckle_joint" />
+        <position
+          class="size4"
+          name="thing2_shoulder_pan_joint"
+          joint="thing2_shoulder_pan_joint"
+        />
+        <position
+          class="size4"
+          name="thing2_shoulder_lift_joint"
+          joint="thing2_shoulder_lift_joint"
+        />
+        <position
+          class="size3_limited"
+          name="thing2_elbow_joint"
+          joint="thing2_elbow_joint"
+        />
+        <position
+          class="size2"
+          name="thing2_wrist_1_joint"
+          joint="thing2_wrist_1_joint"
+        />
+        <position
+          class="size2"
+          name="thing2_wrist_2_joint"
+          joint="thing2_wrist_2_joint"
+        />
+        <position
+          class="size2"
+          name="thing2_wrist_3_joint"
+          joint="thing2_wrist_3_joint"
+        />
+        <position tendon="thing2_split" name="thing2_robotiq_85_left_knuckle_joint" kp="10000" dampratio="1.0" ctrlrange="0.0 0.79" forcerange="-150 150"/>
       </actuator>
 
-      <equality>
-        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_right_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_left_inner_knuckle_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_right_inner_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_left_finger_tip_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_right_finger_tip_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+      <tendon>
+        <fixed name="thing1_split">
+          <joint joint="thing1_robotiq_85_left_knuckle_joint" coef="0.5"/>
+          <joint joint="thing1_robotiq_85_right_knuckle_joint" coef="-0.5"/>
+        </fixed>
+        <fixed name="thing2_split">
+          <joint joint="thing2_robotiq_85_left_knuckle_joint" coef="0.5"/>
+          <joint joint="thing2_robotiq_85_right_knuckle_joint" coef="-0.5"/>
+        </fixed>
+      </tendon>
 
+      <contact>
+        <exclude body1="world" body2="thing1_shoulder_link" />
+        <exclude
+          body1="thing1_wrist_3_link"
+          body2="thing1_robotiq_85_left_knuckle_link"
+        />
+        <exclude
+          body1="thing1_wrist_3_link"
+          body2="thing1_robotiq_85_left_inner_knuckle_link"
+        />
+        <exclude
+          body1="thing1_robotiq_85_left_inner_knuckle_link"
+          body2="thing1_robotiq_85_left_finger_tip_link"
+        />
+        <exclude
+          body1="thing1_robotiq_85_left_knuckle_link"
+          body2="thing1_robotiq_85_left_finger_tip_link"
+        />
+        <exclude
+          body1="thing1_wrist_3_link"
+          body2="thing1_robotiq_85_right_knuckle_link"
+        />
+        <exclude
+          body1="thing1_wrist_3_link"
+          body2="thing1_robotiq_85_right_inner_knuckle_link"
+        />
+        <exclude
+          body1="thing1_robotiq_85_right_inner_knuckle_link"
+          body2="thing1_robotiq_85_right_finger_tip_link"
+        />
+        <exclude
+          body1="thing1_robotiq_85_right_knuckle_link"
+          body2="thing1_robotiq_85_right_finger_tip_link"
+        />
+        <exclude body1="thing1_robotiq_85_left_finger_tip_link" body2="thing1_robotiq_85_right_finger_tip_link" />
+
+        <exclude body1="world" body2="thing2_shoulder_link" />
+        <exclude
+          body1="thing2_wrist_3_link"
+          body2="thing2_robotiq_85_left_knuckle_link"
+        />
+        <exclude
+          body1="thing2_wrist_3_link"
+          body2="thing2_robotiq_85_left_inner_knuckle_link"
+        />
+        <exclude
+          body1="thing2_robotiq_85_left_inner_knuckle_link"
+          body2="thing2_robotiq_85_left_finger_tip_link"
+        />
+        <exclude
+          body1="thing2_robotiq_85_left_knuckle_link"
+          body2="thing2_robotiq_85_left_finger_tip_link"
+        />
+        <exclude
+          body1="thing2_wrist_3_link"
+          body2="thing2_robotiq_85_right_knuckle_link"
+        />
+        <exclude
+          body1="thing2_wrist_3_link"
+          body2="thing2_robotiq_85_right_inner_knuckle_link"
+        />
+        <exclude
+          body1="thing2_robotiq_85_right_inner_knuckle_link"
+          body2="thing2_robotiq_85_right_finger_tip_link"
+        />
+        <exclude
+          body1="thing2_robotiq_85_right_knuckle_link"
+          body2="thing2_robotiq_85_right_finger_tip_link"
+        />
+        <exclude body1="thing2_robotiq_85_left_finger_tip_link" body2="thing2_robotiq_85_right_finger_tip_link" />
+      </contact>
+
+      <equality>
+        <connect anchor="-0.0371575 0.0 0.043422" body1="thing1_robotiq_85_right_inner_knuckle_link" body2="thing1_robotiq_85_right_finger_tip_link" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+        <connect anchor="0.0371575 0.0 0.043422" body1="thing1_robotiq_85_left_inner_knuckle_link" body2="thing1_robotiq_85_left_finger_tip_link" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+        <joint joint1="thing1_robotiq_85_left_knuckle_joint" joint2="thing1_robotiq_85_right_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+
+        <connect anchor="-0.0371575 0.0 0.043422" body1="thing2_robotiq_85_right_inner_knuckle_link" body2="thing2_robotiq_85_right_finger_tip_link" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+        <connect anchor="0.0371575 0.0 0.043422" body1="thing2_robotiq_85_left_inner_knuckle_link" body2="thing2_robotiq_85_left_finger_tip_link" solimp="0.95 0.99 0.001" solref="0.005 1"/>
         <joint joint1="thing2_robotiq_85_left_knuckle_joint" joint2="thing2_robotiq_85_right_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing2_robotiq_85_left_knuckle_joint" joint2="thing2_robotiq_85_left_inner_knuckle_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing2_robotiq_85_left_knuckle_joint" joint2="thing2_robotiq_85_right_inner_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing2_robotiq_85_left_knuckle_joint" joint2="thing2_robotiq_85_left_finger_tip_joint" polycoef="0 -1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
-        <joint joint1="thing2_robotiq_85_left_knuckle_joint" joint2="thing2_robotiq_85_right_finger_tip_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001" solref="0.005 1"/>
       </equality>
 
       <sensor>
-        <force name="thing1_tcp_fts_sensor_force" site="thing1_robotiq_ft_frame_id"/>
-        <torque name="thing1_tcp_fts_sensor_torque" site="thing1_robotiq_ft_frame_id"/>
+        <force
+          name="thing1_tcp_fts_sensor_force"
+          site="thing1_robotiq_ft_frame_id"
+        />
+        <torque
+          name="thing1_tcp_fts_sensor_torque"
+          site="thing1_robotiq_ft_frame_id"
+        />
       </sensor>
 
       <sensor>
-        <force name="thing2_tcp_fts_sensor_force" site="thing2_robotiq_ft_frame_id"/>
-        <torque name="thing2_tcp_fts_sensor_torque" site="thing2_robotiq_ft_frame_id"/>
+        <force
+          name="thing2_tcp_fts_sensor_force"
+          site="thing2_robotiq_ft_frame_id"
+        />
+        <torque
+          name="thing2_tcp_fts_sensor_torque"
+          site="thing2_robotiq_ft_frame_id"
+        />
       </sensor>
     </raw_inputs>
 
-    <!-- Process arguments for the URDF -->
     <processed_inputs>
-      <!-- Add frictionloss and armature to fingers to help with backdriving -->
-      <!-- <modify_element type="joint" name="thing1_robotiq_85_left_knuckle_joint" armature="0.5" frictionloss="5.0" />
-      <modify_element type="joint" name="thing1_robotiq_85_right_knuckle_joint" armature="0.5" frictionloss="5.0" /> -->
-
-      <!-- Add frictionloss and armature to fingers to help with backdriving -->
-      <!-- <modify_element type="joint" name="thing2_robotiq_85_left_knuckle_joint" armature="0.5" frictionloss="5.0" />
-      <modify_element type="joint" name="thing2_robotiq_85_right_knuckle_joint" armature="0.5" frictionloss="5.0" /> -->
+      <modify_element type="joint" name="thing1_robotiq_85_left_knuckle_joint" armature="0.5" frictionloss="5.0" />
+      <modify_element type="joint" name="thing1_robotiq_85_right_knuckle_joint" armature="0.5" frictionloss="5.0" />
+      <modify_element type="joint" name="thing2_robotiq_85_left_knuckle_joint" armature="0.5" frictionloss="5.0" />
+      <modify_element type="joint" name="thing2_robotiq_85_right_knuckle_joint" armature="0.5" frictionloss="5.0" />
     </processed_inputs>
   </mujoco_inputs>
+
+  <joint name="falling_box_joint" type="floating">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="world" />
+    <child link="falling_box" />
+  </joint>
+
+  <link name="falling_box">
+    <inertial>
+      <mass value="0.01" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+  </link>
 
   <ros2_control name="MujocoSystem" type="system">
     <hardware>
@@ -188,5 +361,6 @@
     </hardware>
     <xacro:mujoco_ur5 prefix="thing1_" />
     <xacro:mujoco_ur5 prefix="thing2_" />
+    <joint name="falling_box_joint" />
   </ros2_control>
 </robot>
