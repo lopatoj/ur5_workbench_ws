@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ur5_workbench_description</name>
@@ -10,7 +10,7 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>ur_description</depend>
-  <depend>robotiq_ft_sensor_description</depend>
+  <!-- <depend>robotiq_ft_sensor_description</depend> -->
   <depend>robotiq_description</depend>
   <depend>realsense2_description</depend>
 
