@@ -1,12 +1,19 @@
 from launch import LaunchDescription
-from launch.actions import Shutdown
-from launch.substitutions import Command, PathJoinSubstitution
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, Shutdown
+from launch.event_handlers import OnProcessExit
+from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterFile, ParameterValue
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    arguments = []
+    arguments.append(DeclareLaunchArgument("include_thing1", default_value="true"))
+    arguments.append(DeclareLaunchArgument("include_thing2", default_value="true"))
+    arguments.append(DeclareLaunchArgument("thing1_wrist_camera_model", default_value=""))
+    arguments.append(DeclareLaunchArgument("thing2_wrist_camera_model", default_value=""))
+
     mujoco_config_package = FindPackageShare("ur5_workbench_mujoco_config")
     urdf_file = PathJoinSubstitution(
         [mujoco_config_package, "urdf", "ur5_workbench.mujoco_ros2_control.xacro"]
@@ -19,6 +26,14 @@ def generate_launch_description():
         [
             "xacro ",
             urdf_file,
+            " include_thing1:=",
+            LaunchConfiguration("include_thing1"),
+            " include_thing2:=",
+            LaunchConfiguration("include_thing2"),
+            " thing1_wrist_camera_model:=",
+            LaunchConfiguration("thing1_wrist_camera_model"),
+            " thing2_wrist_camera_model:=",
+            LaunchConfiguration("thing2_wrist_camera_model"),
         ]
     )
 
@@ -119,8 +134,12 @@ def generate_launch_description():
         arguments=["-d", rviz_config_file],
     )
 
+    delay_rviz_after_controllers = RegisterEventHandler(
+        event_handler=OnProcessExit(target_action=fts_broadcaster2, on_exit=[rviz_node])
+    )
+
     return LaunchDescription(
-        [
+        arguments + [
             mjcf_conversion_node,
             robot_state_publisher_node,
             mujoco_ros2_control_node,
@@ -128,6 +147,6 @@ def generate_launch_description():
             joint_trajectory_controller,
             fts_broadcaster1,
             fts_broadcaster2,
-            rviz_node,
+            delay_rviz_after_controllers,
         ]
     )

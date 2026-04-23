@@ -36,6 +36,10 @@ def generate_launch_description():
             name="thing2_wrist_camera_model",
             default_value="",
             description="",
+        ),
+        DeclareLaunchArgument(
+            name="write_to_file",
+            default_value="true",
         )
     ]
 
@@ -68,5 +72,6 @@ def generate_launch_description():
         executable="robot_state_publisher",
         parameters=[{"robot_description": robot_description}],
     )
+
 
     return LaunchDescription(args + [robot_state_publisher_node])

@@ -5,19 +5,26 @@
   <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
   <xacro:include filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_fts.ros2_control.xacro" />
   <xacro:include filename="$(find ur5_workbench_description)/urdf/camera_mount_macro.xacro" />
+  <xacro:include filename="$(find ur_robot_driver)/urdf/ur.ros2_control.xacro" />
 
   <xacro:macro name="thing" params="
     name
     parent
     *origin
 
-    include_ros2_control:=true
+    include_ros2_control:=false
     wrist_camera_model:=''
 
     joint_limits_parameters_file
     kinematics_parameters_file
     physical_parameters_file
     visual_parameters_file
+
+    robot_ip:=''
+    script_filename:=''
+    input_recipe_filename:=''
+    output_recipe_filename:=''
+    initial_positions:=${dict(shoulder_pan_joint=0.0,shoulder_lift_joint=-1.57,elbow_joint=0.0,wrist_1_joint=-1.57,wrist_2_joint=0.0,wrist_3_joint=0.0)}
   ">
     <xacro:ur_robot
       name="${name}"
@@ -33,12 +40,6 @@
     <xacro:robotiq_ft300 parent="tool0" tf_prefix="${name}_">
       <origin xyz="0 0 -0.004" rpy="0 0 ${-pi/2}" />
     </xacro:robotiq_ft300>
-    <xacro:if value="${include_ros2_control}">
-      <xacro:robotiq_fts_ros2_control
-        name="${name}_"
-        tf_prefix="${name}_"
-      />
-    </xacro:if>
     <xacro:if value="${wrist_camera_model != ''}">
       <xacro:include filename="$(find realsense2_description)/urdf/_${wrist_camera_model}.urdf.xacro" />
       <xacro:camera_mount parent="${name}_robotiq_ft_frame_id" tf_prefix="${name}_">
@@ -69,5 +70,23 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:robotiq_gripper>
     </xacro:unless>
+
+    <!-- ros2_control macros -->
+    <xacro:if value="${include_ros2_control}">
+      <xacro:robotiq_fts_ros2_control
+        name="${name}_"
+        tf_prefix="${name}_"
+      />
+      <xacro:ur_ros2_control
+        name="${name}_"
+        tf_prefix="${name}_"
+        kinematics_parameters_file="${kinematics_parameters_file}"
+        robot_ip="${robot_ip}"
+        script_filename="${script_filename}"
+        input_recipe_filename="${input_recipe_filename}"
+        output_recipe_filename="${output_recipe_filename}"
+        initial_positions="${initial_positions}"
+      />
+    </xacro:if>
   </xacro:macro>
 </robot>

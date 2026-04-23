@@ -8,7 +8,10 @@
       parent
       *origin
 
-      include_ros2_control:=true
+      include_ros2_control:=false
+      script_filename:=''
+      input_recipe_filename:=''
+      output_recipe_filename:=''
 
       include_thing1:=true
       thing1_wrist_camera_model:=''
@@ -16,6 +19,7 @@
       thing1_kinematics_parameters_file
       thing1_physical_parameters_file
       thing1_visual_parameters_file
+      thing1_robot_ip:=''
 
       include_thing2:=true
       thing2_wrist_camera_model:=''
@@ -23,6 +27,7 @@
       thing2_kinematics_parameters_file
       thing2_physical_parameters_file
       thing2_visual_parameters_file
+      thing2_robot_ip:=''
       "
   >
     <joint name="table_joint" type="fixed">

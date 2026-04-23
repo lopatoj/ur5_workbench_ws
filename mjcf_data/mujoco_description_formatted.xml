@@ -3,6 +3,8 @@
   <asset>
     <mesh name="robotiq_ft300" content_type="model/stl" file="full/robotiq_ft300.stl"/>
     <mesh name="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" content_type="model/stl" file="full/robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119.stl"/>
+    <mesh name="camera_mount" content_type="model/stl" file="full/camera_mount.stl"/>
+    <mesh name="d405" content_type="model/stl" file="full/d405.stl" scale="0.001 0.001 0.001"/>
     <mesh file="full/base/base_0.obj" scale="1.0 1.0 1.0"/>
     <mesh file="full/base/base_1.obj" scale="1.0 1.0 1.0"/>
     <material name="material_base_0" specular="0.20000000000000004" shininess="1.0" rgba="0.52549020 0.52549020 0.52549020 1.0"/>
@@ -234,9 +236,9 @@
               <inertial pos="0 0.01634 -0.0018" quat="0.5 0.5 -0.5 0.5" mass="1.219" diaginertia="0.0021942 0.00183104 0.00183104"/>
               <joint name="thing2_wrist_2_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-28 28"/>
               <body name="thing2_wrist_3_link" pos="0 0.0823 -1.688e-11" quat="0.707107 -0.707107 0 0">
-                <inertial pos="-0.000226932 -0.000162966 0.0453767" quat="0.706316 -0.000320542 0.00380304 0.707886" mass="1.1511" diaginertia="0.00192005 0.00185119 0.00074602"/>
+                <inertial pos="-0.000748116 -0.0040079 0.0399163" quat="0.988177 -0.0923724 -0.00390547 -0.122305" mass="1.2231" diaginertia="0.0071376 0.00703469 0.00141476"/>
                 <joint name="thing2_wrist_3_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-28 28"/>
-                <body name="thing2_robotiq_85_left_knuckle_link" pos="0.0306011 0 0.0924045" quat="-1 0 0 0">
+                <body name="thing2_robotiq_85_left_knuckle_link" pos="0.0306011 0 0.0954045" quat="-1 0 0 0">
                   <inertial pos="0.0280921 -0.000550523 0.00570126" quat="0.699112 0.212074 0.213677 0.648544" mass="0.0564515" diaginertia="1.95637e-05 1.76663e-05 9.3792e-06"/>
                   <joint name="thing2_robotiq_85_left_knuckle_joint" pos="0 0 0" axis="0 -1 0" range="0 0.8" actuatorfrcrange="-50 50" armature="0.5" frictionloss="5.0"/>
                   <body name="thing2_robotiq_85_left_finger_tip_link" pos="0.0371575 0 0.0434217">
@@ -257,7 +259,7 @@
                   <site name="thing2_robotiq_85_left_knuckle_link" pos="0 0 0" quat="1.0 0 0 0"/>
                   <site name="thing2_robotiq_85_left_finger_link" pos="0.03152616 0 -0.00376347" quat="1.0 0 0 0"/>
                 </body>
-                <body name="thing2_robotiq_85_right_knuckle_link" pos="-0.0306011 0 0.0924045" quat="-1 0 0 0">
+                <body name="thing2_robotiq_85_right_knuckle_link" pos="-0.0306011 0 0.0954045" quat="-1 0 0 0">
                   <inertial pos="-0.0280921 4.48872e-05 0.00570126" quat="0.669099 -0.212862 -0.212522 0.679581" mass="0.0564515" diaginertia="1.95514e-05 1.7665e-05 9.37296e-06"/>
                   <joint name="thing2_robotiq_85_right_knuckle_joint" pos="0 0 0" axis="0 -1 0" range="-0.8 0" actuatorfrcrange="-50 50" armature="0.5" frictionloss="5.0"/>
                   <body name="thing2_robotiq_85_right_finger_tip_link" pos="-0.0371575 0 0.0434217">
@@ -278,7 +280,7 @@
                   <site name="thing2_robotiq_85_right_knuckle_link" pos="0 0 0" quat="1.0 0 0 0"/>
                   <site name="thing2_robotiq_85_right_finger_link" pos="-0.03152616 0 -0.00376347" quat="1.0 0 0 0"/>
                 </body>
-                <body name="thing2_robotiq_85_left_inner_knuckle_link" pos="0.0127 0 0.09892" quat="-1 0 0 0">
+                <body name="thing2_robotiq_85_left_inner_knuckle_link" pos="0.0127 0 0.10192" quat="-1 0 0 0">
                   <inertial pos="0.018977 0.00015001 0.022471" quat="0.939613 0 0.342237 0" mass="0.0296938" diaginertia="1.28757e-05 8.69056e-06 4.88712e-06"/>
                   <joint name="thing2_robotiq_85_left_inner_knuckle_joint" pos="0 0 0" axis="0 -1 0"/>
                   <geom mesh="left_inner_knuckle_0" material="material_left_inner_knuckle_1" class="visual" pos="" quat=""/>
@@ -287,7 +289,7 @@
                   <geom mesh="left_inner_knuckle_1" class="collision" pos="" quat=""/>
                   <site name="thing2_robotiq_85_left_inner_knuckle_link" pos="0 0 0" quat="1.0 0 0 0"/>
                 </body>
-                <body name="thing2_robotiq_85_right_inner_knuckle_link" pos="-0.0127 0 0.09892" quat="-1 0 0 0">
+                <body name="thing2_robotiq_85_right_inner_knuckle_link" pos="-0.0127 0 0.10192" quat="-1 0 0 0">
                   <inertial pos="-0.0192682 5.001e-05 0.0222218" quat="0.936371 0 -0.351012 0" mass="0.0296938" diaginertia="1.2882e-05 8.69056e-06 4.88076e-06"/>
                   <joint name="thing2_robotiq_85_right_inner_knuckle_joint" pos="0 0 0" axis="0 -1 0"/>
                   <geom mesh="right_inner_knuckle_0" material="material_right_inner_knuckle_1" class="visual" pos="" quat=""/>
@@ -300,14 +302,18 @@
                 <geom mesh="wrist3_1" material="material_wrist3_0" class="visual" pos="0 0 -0.0818" quat="0.707107 0.707107 0 0"/>
                 <geom mesh="wrist3_0" class="collision" pos="0 0 -0.0818" quat="0.707107 0.707107 0 0"/>
                 <geom mesh="wrist3_1" class="collision" pos="0 0 -0.0818" quat="0.707107 0.707107 0 0"/>
-                <geom mesh="robotiq_base_0" material="material_robotiq_base_1" class="visual" pos="0 0 0.0375" quat="-1 0 0 0"/>
-                <geom mesh="robotiq_base_1" material="material_robotiq_base_0" class="visual" pos="0 0 0.0375" quat="-1 0 0 0"/>
-                <geom mesh="robotiq_base_0" class="collision" pos="0 0 0.0375" quat="-1 0 0 0"/>
-                <geom mesh="robotiq_base_1" class="collision" pos="0 0 0.0375" quat="-1 0 0 0"/>
+                <geom mesh="robotiq_base_0" material="material_robotiq_base_1" class="visual" pos="0 0 0.0405" quat="-1 0 0 0"/>
+                <geom mesh="robotiq_base_1" material="material_robotiq_base_0" class="visual" pos="0 0 0.0405" quat="-1 0 0 0"/>
+                <geom mesh="robotiq_base_0" class="collision" pos="0 0 0.0405" quat="-1 0 0 0"/>
+                <geom mesh="robotiq_base_1" class="collision" pos="0 0 0.0405" quat="-1 0 0 0"/>
                 <geom pos="0 0 -0.004" quat="0.707107 0 0 -0.707107" type="mesh" mesh="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" class="collision"/>
                 <geom pos="0 0 -0.004" quat="0.707107 0 0 -0.707107" type="mesh" rgba="0.4 0.4 0.4 1" mesh="robotiq_ft300-G-062-COUPLING_G-50-4M6-1D6_20181119" class="visual"/>
                 <geom pos="0 0 0.0375" quat="0 0.707107 0.707107 0" type="mesh" mesh="robotiq_ft300" class="collision"/>
                 <geom pos="0 0 0.0375" quat="0 0.707107 0.707107 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="robotiq_ft300" class="visual"/>
+                <geom pos="0 0 0.0375" quat="-1 0 0 0" type="mesh" mesh="camera_mount" class="collision"/>
+                <geom pos="0 0 0.0375" quat="-1 0 0 0" type="mesh" rgba="0.647059 0.647059 0.647059 1" mesh="camera_mount" class="visual"/>
+                <geom pos="-8.05686e-05 -0.0744855 0.069288" quat="-1.07283e-08 -1.53424e-07 -0.0697558 -0.997564" type="mesh" mesh="d405" class="collision"/>
+                <geom pos="-8.05686e-05 -0.0744855 0.069288" quat="-1.07283e-08 -1.53424e-07 -0.0697558 -0.997564" type="mesh" mesh="d405" class="visual"/>
                 <site name="thing2_wrist_3_link" pos="0 0 0" quat="1.0 0 0 0"/>
                 <site name="thing2_ft_frame" pos="0 0 0" quat="0 1.0 0 0"/>
                 <site name="thing2_flange" pos="0 0 0" quat="-0.5000000000000001 0.5 0.5000000000000001 0.49999999999999994"/>
@@ -315,7 +321,14 @@
                 <site name="thing2_ft300_sensor" pos="0 0 0.037500000000000006" quat="0 0.7071067811865475 0.7071067811865476 0"/>
                 <site name="thing2_ft300_mounting_plate" pos="0 0 -0.004" quat="0.7071067811865476 0 0 -0.7071067811865475"/>
                 <site name="thing2_robotiq_ft_frame_id" pos="0 0 0.037500000000000006" quat="1.0 0 0 0"/>
-                <site name="thing2_robotiq_85_base_link" pos="0 0 0.037500000000000006" quat="1.0 0 0 0"/>
+                <site name="thing2_camera_mount_link" pos="0 0 0.037500000000000006" quat="1.0 0 0 0"/>
+                <site name="thing2_tool_link" pos="0 0 0.040499969999999996" quat="1.0 0 0 0"/>
+                <site name="thing2_camera_link" pos="-8.057589999999908e-05 -0.0777769 0.04586815000000001" quat="0.9975640970019908 -0.06975580529661309 1.5342408816672884e-07 -1.0728312275449459e-08"/>
+                <site name="thing2_d405_bottom_screw_frame" pos="-8.057313162471681e-05 -0.05572872067506382 0.05185795704659586" quat="0.5336600332255023 0.46390421720057673 -0.46390407450480087 0.5336598690731017"/>
+                <site name="thing2_d405_link" pos="-0.00908056979419023 -0.07501433990394277 0.06552497760824369" quat="0.5336600332255023 0.46390421720057673 -0.46390407450480087 0.5336598690731017"/>
+                <site name="thing2_robotiq_85_base_link" pos="0 0 0.040499969999999996" quat="1.0 0 0 0"/>
+                <site name="thing2_wrist_camera_frame" pos="-0.00908056979419023 -0.07501433990394277 0.06552497760824369" quat="0.9975640970019908 -0.06975580529661309 1.5342408813405158e-07 -1.0728312303855397e-08"/>
+                <camera fovy="45" mode="fixed" name="thing2_wrist_camera" resolution="640 480" pos="-0.00908056979419023 -0.07501433990394277 0.06552497760824369" quat="0.06975580529661309 0.9975640970019908 -1.0728312303855397e-08 -1.5342408813405158e-07"/>
               </body>
               <geom mesh="wrist2_0" material="material_wrist2_2" class="visual" pos="0 0 -0.095" quat="1 0 0 0"/>
               <geom mesh="wrist2_1" material="material_wrist2_1" class="visual" pos="0 0 -0.095" quat="1 0 0 0"/>
@@ -359,13 +372,6 @@
       <geom mesh="shoulder_2" class="collision" pos="" quat="0 0 0 1"/>
       <site name="thing2_shoulder_link" pos="0 0 0" quat="1.0 0 0 0"/>
     </body>
-    <body name="falling_box">
-      <inertial pos="0 0 0" mass="0.01" diaginertia="1 1 1"/>
-      <joint name="falling_box_joint" type="free"/>
-      <geom size="0.025 0.025 0.025" type="box" class="collision"/>
-      <geom size="0.025 0.025 0.025" type="box" class="visual"/>
-      <site name="falling_box" pos="0 0 0" quat="1.0 0 0 0"/>
-    </body>
     <geom mesh="base_0" material="material_base_1" class="visual" pos="1.905 0.381 0" quat="-0.707107 0 0 -0.707107"/>
     <geom mesh="base_1" material="material_base_0" class="visual" pos="1.905 0.381 0" quat="-0.707107 0 0 -0.707107"/>
     <geom mesh="base_0" class="collision" pos="1.905 0.381 0" quat="-0.707107 0 0 -0.707107"/>
@@ -400,7 +406,6 @@
   </worldbody>
   <option integrator="implicitfast"/>
   <default>
-    <geom condim="4" friction="2.0 0.5 0.0001" solimp="0.95 0.99 0.001" solref="0.004 1"/>
     <material shininess="0.25" specular="0.5"/>
     <joint armature="0.1" axis="0 1 0" range="-6.28319 6.28319"/>
     <position ctrlrange="-6.2831 6.2831"/>

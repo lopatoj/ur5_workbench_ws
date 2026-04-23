@@ -706,6 +706,90 @@
 		<child link="thing2_robotiq_ft_frame_id"/>
 	</joint>
 	<link name="thing2_robotiq_ft_frame_id"/>
+	<material name="aluminum">
+		<color rgba="0.5 0.5 0.5 1"/>
+	</material>
+	<material name="plastic">
+		<color rgba="0.1 0.1 0.1 1"/>
+	</material>
+	<joint name="thing2_camera_mount_joint" type="fixed">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<parent link="thing2_robotiq_ft_frame_id"/>
+		<child link="thing2_camera_mount_link"/>
+	</joint>
+	<link name="thing2_camera_mount_link">
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="1e-09"/>
+			<inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+		</inertial>
+		<!-- Part part_1 -->
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<mesh filename="full/camera_mount.stl"/>
+			</geometry>
+			<material name="part_1_material">
+				<color rgba="0.647059 0.647059 0.647059 1"/>
+			</material>
+		</visual>
+	</link>
+	<link name="thing2_tool_link">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="1e-9"/>
+			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+		</inertial>
+	</link>
+	<joint name="thing2_tool_link_frame" type="fixed">
+		<origin rpy="0 0 0" xyz="0 0 0.00299997"/>
+		<parent link="thing2_camera_mount_link"/>
+		<child link="thing2_tool_link"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+	<link name="thing2_camera_link">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="1e-9"/>
+			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+		</inertial>
+	</link>
+	<joint name="thing2_camera_link_frame" type="fixed">
+		<origin rpy="-0.139625 3.04604e-07 -4.28088e-08" xyz="-8.05759e-05 -0.0777769 0.00836815"/>
+		<parent link="thing2_camera_mount_link"/>
+		<child link="thing2_camera_link"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+	<!-- camera body, with origin at bottom screw mount -->
+	<joint name="thing2_d405_joint" type="fixed">
+		<origin rpy="0 -1.5707963267948966 1.5707963267948966" xyz="0 0.021 0.009"/>
+		<parent link="thing2_camera_link"/>
+		<child link="thing2_d405_bottom_screw_frame"/>
+	</joint>
+	<link name="thing2_d405_bottom_screw_frame"/>
+	<joint name="thing2_d405_link_joint" type="fixed">
+		<origin rpy="0 0 0" xyz="0.01085 0.009 0.021"/>
+		<parent link="thing2_d405_bottom_screw_frame"/>
+		<child link="thing2_d405_link"/>
+	</joint>
+	<link name="thing2_d405_link">
+		<visual>
+			<!-- the mesh origin is at front plate in between the two infrared camera axes -->
+			<origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0.0038 -0.009 0"/>
+			<geometry>
+				<mesh filename="full/d405.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<material name="aluminum"/>
+		</visual>
+		<inertial>
+			<!-- The following are not reliable values, and should not be used for modeling -->
+			<mass value="0.072"/>
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257"/>
+		</inertial>
+	</link>
 	<link name="thing2_robotiq_85_base_link">
 		<visual>
 			<geometry>
@@ -815,7 +899,7 @@
 		</inertial>
 	</link>
 	<joint name="thing2_robotiq_85_base_joint" type="fixed">
-		<parent link="thing2_robotiq_ft_frame_id"/>
+		<parent link="thing2_tool_link"/>
 		<child link="thing2_robotiq_85_base_link"/>
 		<origin rpy="0 0 0" xyz="0 0 0"/>
 	</joint>
@@ -876,7 +960,6 @@
 		<raw_inputs>
 			<option integrator="implicitfast"/>
 			<default>
-				<geom condim="4" friction="2.0 0.5 0.0001" solimp="0.95 0.99 0.001" solref="0.004 1"/>
 				<material shininess="0.25" specular="0.5"/>
 				<joint armature="0.1" axis="0 1 0" range="-6.28319 6.28319"/>
 				<position ctrlrange="-6.2831 6.2831"/>
@@ -972,26 +1055,38 @@
 		<processed_inputs>
 			<modify_element armature="0.5" frictionloss="5.0" name="thing1_robotiq_85_left_knuckle_joint" type="joint"/>
 			<modify_element armature="0.5" frictionloss="5.0" name="thing1_robotiq_85_right_knuckle_joint" type="joint"/>
+			<camera fovy="45" mode="fixed" name="thing2_wrist_camera" resolution="640 480" site="thing2_wrist_camera_frame"/>
 			<modify_element armature="0.5" frictionloss="5.0" name="thing2_robotiq_85_left_knuckle_joint" type="joint"/>
 			<modify_element armature="0.5" frictionloss="5.0" name="thing2_robotiq_85_right_knuckle_joint" type="joint"/>
 		</processed_inputs>
 	</mujoco_inputs>
-	<joint name="falling_box_joint" type="floating">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="world"/>
-		<child link="falling_box"/>
+	<!-- <joint name="falling_box_joint" type="floating">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="world" />
+    <child link="falling_box" />
+  </joint>
+  <link name="falling_box">
+    <inertial>
+      <mass value="0.01" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.05" />
+      </geometry>
+    </collision>
+  </link> -->
+	<joint name="thing2_wrist_camera_frame_joint" type="fixed">
+		<origin rpy="-1.5707963267948966 0 -1.5707963267948966" xyz="0 0 0"/>
+		<parent link="thing2_d405_link"/>
+		<child link="thing2_wrist_camera_frame"/>
 	</joint>
-	<link name="falling_box">
-		<inertial>
-			<mass value="0.01"/>
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-		</inertial>
-		<visual>
-			<geometry>
-				<box size="0.05 0.05 0.05"/>
-			</geometry>
-		</visual>
-	</link>
+	<link name="thing2_wrist_camera_frame"/>
 	<ros2_control name="MujocoSystem" type="system">
 		<hardware>
 			<plugin>mujoco_ros2_control/MujocoSystemInterface</plugin>
@@ -1063,6 +1158,12 @@
 			<state_interface name="torque.y"/>
 			<state_interface name="torque.z"/>
 		</sensor>
+		<sensor name="thing2_wrist_camera">
+			<param name="frame_name">thing2_wrist_camera_frame</param>
+			<param name="info_topic">/thing2_wrist_camera/color/camera_info</param>
+			<param name="image_topic">/thing2_wrist_camera/color/image_raw</param>
+			<param name="depth_topic">/thing2_wrist_camera/aligned_depth_to_color/image_raw</param>
+		</sensor>
 		<joint name="thing2_shoulder_pan_joint">
 			<state_interface name="position">
 				<param name="initial_value">0.0</param>
@@ -1129,7 +1230,6 @@
 			<state_interface name="torque.y"/>
 			<state_interface name="torque.z"/>
 		</sensor>
-		<joint name="falling_box_joint"/>
 	</ros2_control>
 	<mujoco>
 		<compiler assetdir="/home/lopatoj/ur5_workbench_ws/mjcf_data/assets" balanceinertia="true" discardvisual="false" strippath="false"/>

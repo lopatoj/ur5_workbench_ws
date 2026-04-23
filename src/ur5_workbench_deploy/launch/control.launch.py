@@ -17,6 +17,12 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     arguments = []
     arguments.append(DeclareLaunchArgument("launch_rviz", default_value="true"))
+    arguments.append(DeclareLaunchArgument("thing1_robot_ip", default_value="192.168.50.1"))
+    arguments.append(DeclareLaunchArgument("thing2_robot_ip", default_value="192.168.50.2"))
+    arguments.append(DeclareLaunchArgument("include_thing1", default_value="true"))
+    arguments.append(DeclareLaunchArgument("include_thing2", default_value="true"))
+    arguments.append(DeclareLaunchArgument("thing1_wrist_camera_model", default_value=""))
+    arguments.append(DeclareLaunchArgument("thing2_wrist_camera_model", default_value=""))
 
     description_package = FindPackageShare("ur5_workbench_mujoco_config")
 
@@ -32,10 +38,43 @@ def generate_launch_description():
     )
     rviz_config_file = PathJoinSubstitution([description_package, "rviz", "view.rviz"])
 
+    script_filename = PathJoinSubstitution(
+        [
+            FindPackageShare("ur_client_library"),
+            "resources",
+            "external_control.urscript",
+        ]
+    )
+    input_recipe_filename = PathJoinSubstitution(
+        [FindPackageShare("ur_robot_driver"), "resources", "rtde_input_recipe.txt"]
+    )
+    output_recipe_filename = PathJoinSubstitution(
+        [FindPackageShare("ur_robot_driver"), "resources", "rtde_output_recipe.txt"]
+    )
+
     robot_description_content = Command(
         [
             "xacro ",
             urdf_file,
+            "include_ros2_control:=true",
+            "include_thing1:=",
+            LaunchConfiguration("include_thing1"),
+            "include_thing2:=",
+            LaunchConfiguration("include_thing2"),
+            "thing1_robot_ip:=",
+            LaunchConfiguration("thing1_robot_ip"),
+            "thing2_robot_ip:=",
+            LaunchConfiguration("thing2_robot_ip"),
+            "thing1_wrist_camera_model:=",
+            LaunchConfiguration("thing1_wrist_camera_model"),
+            "thing2_wrist_camera_model:=",
+            LaunchConfiguration("thing2_wrist_camera_model"),
+            "script_filename:=",
+            script_filename,
+            "input_recipe_filename:=",
+            input_recipe_filename,
+            "output_recipe_filename:=",
+            output_recipe_filename,
         ]
     )
 
