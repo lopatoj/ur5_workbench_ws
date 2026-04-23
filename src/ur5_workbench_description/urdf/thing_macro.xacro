@@ -88,5 +88,11 @@
         initial_positions="${initial_positions}"
       />
     </xacro:if>
+    <joint name="${name}_tcp_joint" type="fixed">
+      <origin xyz="0 0 0.135" rpy="0 0 0" />
+      <parent link="${name}_robotiq_85_base_link" />
+      <child link="${name}_tcp_frame" />
+    </joint>
+    <link name="${name}_tcp_frame" />
   </xacro:macro>
 </robot>
