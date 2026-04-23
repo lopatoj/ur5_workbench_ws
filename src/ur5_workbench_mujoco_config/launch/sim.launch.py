@@ -125,19 +125,6 @@ def generate_launch_description():
         ],
     )
 
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="screen",
-        parameters=[{"use_sim_time": True}],
-        arguments=["-d", rviz_config_file],
-    )
-
-    delay_rviz_after_controllers = RegisterEventHandler(
-        event_handler=OnProcessExit(target_action=fts_broadcaster2, on_exit=[rviz_node])
-    )
-
     return LaunchDescription(
         arguments + [
             mjcf_conversion_node,
@@ -147,6 +134,5 @@ def generate_launch_description():
             joint_trajectory_controller,
             fts_broadcaster1,
             fts_broadcaster2,
-            delay_rviz_after_controllers,
         ]
     )
