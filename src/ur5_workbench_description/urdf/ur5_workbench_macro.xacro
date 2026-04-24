@@ -19,7 +19,7 @@
       thing1_kinematics_parameters_file
       thing1_physical_parameters_file
       thing1_visual_parameters_file
-      thing1_robot_ip:=''
+      thing1_robot_ip:=192.168.50.19
 
       include_thing2:=true
       thing2_wrist_camera_model:=''
@@ -27,7 +27,7 @@
       thing2_kinematics_parameters_file
       thing2_physical_parameters_file
       thing2_visual_parameters_file
-      thing2_robot_ip:=''
+      thing2_robot_ip:=192.168.50.20
       "
   >
     <joint name="table_joint" type="fixed">

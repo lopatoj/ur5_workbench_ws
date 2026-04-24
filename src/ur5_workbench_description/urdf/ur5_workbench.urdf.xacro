@@ -10,14 +10,14 @@
   <xacro:arg name="include_thing1" default="true"/>
   <xacro:arg name="include_thing2" default="true"/>
 
-  <xacro:arg name="thing1_robot_ip" default=""/>
+  <xacro:arg name="thing1_robot_ip" default="192.168.50.19"/>
   <xacro:arg name="thing1_wrist_camera_model" default=""/>
   <xacro:arg name="thing1_joint_limits_parameters_file" default="$(find ur_description)/config/ur5/joint_limits.yaml"/>
   <xacro:arg name="thing1_kinematics_parameters_file" default="$(find ur_description)/config/ur5/default_kinematics.yaml"/>
   <xacro:arg name="thing1_physical_parameters_file" default="$(find ur_description)/config/ur5/physical_parameters.yaml"/>
   <xacro:arg name="thing1_visual_parameters_file" default="$(find ur_description)/config/ur5/visual_parameters.yaml"/>
 
-  <xacro:arg name="thing2_robot_ip" default=""/>
+  <xacro:arg name="thing2_robot_ip" default="192.168.50.20"/>
   <xacro:arg name="thing2_wrist_camera_model" default=""/>
   <xacro:arg name="thing2_joint_limits_parameters_file" default="$(find ur_description)/config/ur5/joint_limits.yaml"/>
   <xacro:arg name="thing2_kinematics_parameters_file" default="$(find ur_description)/config/ur5/default_kinematics.yaml"/>

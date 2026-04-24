@@ -1,9 +1,11 @@
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
+    IncludeLaunchDescription,
     Shutdown,
 )
 from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (
     Command,
     LaunchConfiguration,
@@ -43,7 +45,7 @@ def generate_launch_description():
         [FindPackageShare("ur_robot_driver"), "resources", "rtde_output_recipe.txt"]
     )
 
-    robot_description_publisher_node = IncludeLaunchDescription(
+    robot_state_publisher_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [FindPackageShare("ur5_workbench_description"),
@@ -53,54 +55,10 @@ def generate_launch_description():
         ),
         launch_arguments={
             "include_ros2_control": "true",
-            "include_thing1": LaunchConfiguration("include_thing1"),
-            "include_thing2": LaunchConfiguration("include_thing2"),
-            "thing1_robot_ip": LaunchConfiguration("thing1_robot_ip"),
-            "thing2_robot_ip": LaunchConfiguration("thing2_robot_ip"),
-            "thing1_wrist_camera_model": LaunchConfiguration("thing1_wrist_camera_model"),
-            "thing2_wrist_camera_model": LaunchConfiguration("thing2_wrist_camera_model"),
             "script_filename": script_filename,
             "input_recipe_filename": input_recipe_filename,
             "output_recipe_filename": output_recipe_filename,
         }.items(),
-    ))
-
-    robot_description_content = Command(
-        [
-            "xacro ",
-            urdf_file,
-            "include_ros2_control:=true",
-            "include_thing1:=",
-            LaunchConfiguration("include_thing1"),
-            "include_thing2:=",
-            LaunchConfiguration("include_thing2"),
-            "thing1_robot_ip:=",
-            LaunchConfiguration("thing1_robot_ip"),
-            "thing2_robot_ip:=",
-            LaunchConfiguration("thing2_robot_ip"),
-            "thing1_wrist_camera_model:=",
-            LaunchConfiguration("thing1_wrist_camera_model"),
-            "thing2_wrist_camera_model:=",
-            LaunchConfiguration("thing2_wrist_camera_model"),
-            "script_filename:=",
-            script_filename,
-            "input_recipe_filename:=",
-            input_recipe_filename,
-            "output_recipe_filename:=",
-            output_recipe_filename,
-        ]
-    )
-
-    robot_state_publisher_node = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        parameters=[
-            {
-                "robot_description": ParameterValue(
-                    robot_description_content, value_type=str
-                )
-            }
-        ],
     )
 
     control_node = Node(
