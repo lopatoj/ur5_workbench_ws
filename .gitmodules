@@ -4,3 +4,10 @@
 [submodule "src/external/rq_fts_ros2_driver"]
 	path = src/external/rq_fts_ros2_driver
 	url = https://github.com/panagelak/rq_fts_ros2_driver.git
+[submodule "src/external/ros2_robotiq_gripper"]
+	path = src/external/ros2_robotiq_gripper
+	url = https://github.com/PickNikRobotics/ros2_robotiq_gripper.git
+[submodule "src/external/serial"]
+	path = src/external/serial
+	url = https://github.com/tylerjw/serial.git
+	branch = ros2

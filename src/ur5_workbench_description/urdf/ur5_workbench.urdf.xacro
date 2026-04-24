@@ -1,55 +1,93 @@
 <?xml version="1.0" ?>
 <robot name="ur5_workbench" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find ur5_workbench_description)/urdf/ur5_workbench_macro.xacro" />
+  <xacro:include
+        filename="$(find ur5_workbench_description)/urdf/ur5_workbench_macro.xacro"
+    />
 
-  <xacro:arg name="include_ros2_control" default="false"/>
-  <xacro:arg name="script_filename" default=""/>
-  <xacro:arg name="input_recipe_filename" default=""/>
-  <xacro:arg name="output_recipe_filename" default=""/>
+  <xacro:arg name="include_ros2_control" default="false" />
+  <xacro:arg name="script_filename" default="" />
+  <xacro:arg name="input_recipe_filename" default="" />
+  <xacro:arg name="output_recipe_filename" default="" />
 
-  <xacro:arg name="include_thing1" default="true"/>
-  <xacro:arg name="include_thing2" default="true"/>
+  <xacro:arg name="include_thing1" default="true" />
+  <xacro:arg name="include_thing2" default="true" />
 
-  <xacro:arg name="thing1_robot_ip" default="192.168.50.19"/>
-  <xacro:arg name="thing1_wrist_camera_model" default=""/>
-  <xacro:arg name="thing1_joint_limits_parameters_file" default="$(find ur_description)/config/ur5/joint_limits.yaml"/>
-  <xacro:arg name="thing1_kinematics_parameters_file" default="$(find ur_description)/config/ur5/default_kinematics.yaml"/>
-  <xacro:arg name="thing1_physical_parameters_file" default="$(find ur_description)/config/ur5/physical_parameters.yaml"/>
-  <xacro:arg name="thing1_visual_parameters_file" default="$(find ur_description)/config/ur5/visual_parameters.yaml"/>
+  <xacro:arg name="thing1_use_gripper" default="true" />
+  <xacro:arg name="thing1_gripper_com_port" default="/dev/ttyUSB3" />
+  <xacro:arg name="thing1_use_fts" default="true" />
+  <xacro:arg name="thing1_fts_dev" default="ttyUSB0" />
+  <xacro:arg name="thing1_robot_ip" default="192.168.50.19" />
+  <xacro:arg name="thing1_wrist_camera_model" default="" />
+  <xacro:arg
+        name="thing1_joint_limits_parameters_file"
+        default="$(find ur_description)/config/ur5/joint_limits.yaml"
+    />
+  <xacro:arg
+        name="thing1_kinematics_parameters_file"
+        default="$(find ur_description)/config/ur5/default_kinematics.yaml"
+    />
+  <xacro:arg
+        name="thing1_physical_parameters_file"
+        default="$(find ur_description)/config/ur5/physical_parameters.yaml"
+    />
+  <xacro:arg
+        name="thing1_visual_parameters_file"
+        default="$(find ur_description)/config/ur5/visual_parameters.yaml"
+    />
 
-  <xacro:arg name="thing2_robot_ip" default="192.168.50.20"/>
-  <xacro:arg name="thing2_wrist_camera_model" default=""/>
-  <xacro:arg name="thing2_joint_limits_parameters_file" default="$(find ur_description)/config/ur5/joint_limits.yaml"/>
-  <xacro:arg name="thing2_kinematics_parameters_file" default="$(find ur_description)/config/ur5/default_kinematics.yaml"/>
-  <xacro:arg name="thing2_physical_parameters_file" default="$(find ur_description)/config/ur5/physical_parameters.yaml"/>
-  <xacro:arg name="thing2_visual_parameters_file" default="$(find ur_description)/config/ur5/visual_parameters.yaml"/>
+  <xacro:arg name="thing2_use_gripper" default="true" />
+  <xacro:arg name="thing2_gripper_com_port" default="/dev/ttyUSB2" />
+  <xacro:arg name="thing2_use_fts" default="true" />
+  <xacro:arg name="thing2_fts_dev" default="ttyUSB1" />
+  <xacro:arg name="thing2_robot_ip" default="192.168.50.20" />
+  <xacro:arg name="thing2_wrist_camera_model" default="" />
+  <xacro:arg
+        name="thing2_joint_limits_parameters_file"
+        default="$(find ur_description)/config/ur5/joint_limits.yaml"
+    />
+  <xacro:arg
+        name="thing2_kinematics_parameters_file"
+        default="$(find ur_description)/config/ur5/default_kinematics.yaml"
+    />
+  <xacro:arg
+        name="thing2_physical_parameters_file"
+        default="$(find ur_description)/config/ur5/physical_parameters.yaml"
+    />
+  <xacro:arg
+        name="thing2_visual_parameters_file"
+        default="$(find ur_description)/config/ur5/visual_parameters.yaml"
+    />
 
   <link name="world" />
   <xacro:ur5_workbench
-    parent="world"
-
-    include_ros2_control="$(arg include_ros2_control)"
-    script_filename="$(arg script_filename)"
-    input_recipe_filename="$(arg input_recipe_filename)"
-    output_recipe_filename="$(arg output_recipe_filename)"
-
-    include_thing1="$(arg include_thing1)"
-    include_thing2="$(arg include_thing2)"
-
-    thing1_robot_ip="$(arg thing1_robot_ip)"
-    thing1_wrist_camera_model="$(arg thing1_wrist_camera_model)"
-    thing1_joint_limits_parameters_file="$(arg thing1_joint_limits_parameters_file)"
-    thing1_kinematics_parameters_file="$(arg thing1_kinematics_parameters_file)"
-    thing1_physical_parameters_file="$(arg thing1_physical_parameters_file)"
-    thing1_visual_parameters_file="$(arg thing1_visual_parameters_file)"
-
-    thing2_robot_ip="$(arg thing2_robot_ip)"
-    thing2_wrist_camera_model="$(arg thing2_wrist_camera_model)"
-    thing2_joint_limits_parameters_file="$(arg thing2_joint_limits_parameters_file)"
-    thing2_kinematics_parameters_file="$(arg thing2_kinematics_parameters_file)"
-    thing2_physical_parameters_file="$(arg thing2_physical_parameters_file)"
-    thing2_visual_parameters_file="$(arg thing2_visual_parameters_file)"
-  >
+        parent="world"
+        include_ros2_control="$(arg include_ros2_control)"
+        script_filename="$(arg script_filename)"
+        input_recipe_filename="$(arg input_recipe_filename)"
+        output_recipe_filename="$(arg output_recipe_filename)"
+        include_thing1="$(arg include_thing1)"
+        include_thing2="$(arg include_thing2)"
+        thing1_use_gripper="$(arg thing1_use_gripper)"
+        thing1_gripper_com_port="$(arg thing1_gripper_com_port)"
+        thing1_use_fts="$(arg thing1_use_fts)"
+        thing1_fts_dev="$(arg thing1_fts_dev)"
+        thing1_robot_ip="$(arg thing1_robot_ip)"
+        thing1_wrist_camera_model="$(arg thing1_wrist_camera_model)"
+        thing1_joint_limits_parameters_file="$(arg thing1_joint_limits_parameters_file)"
+        thing1_kinematics_parameters_file="$(arg thing1_kinematics_parameters_file)"
+        thing1_physical_parameters_file="$(arg thing1_physical_parameters_file)"
+        thing1_visual_parameters_file="$(arg thing1_visual_parameters_file)"
+        thing2_gripper_com_port="$(arg thing2_gripper_com_port)"
+        thing2_use_gripper="$(arg thing2_use_gripper)"
+        thing2_use_fts="$(arg thing2_use_fts)"
+        thing2_fts_dev="$(arg thing2_fts_dev)"
+        thing2_robot_ip="$(arg thing2_robot_ip)"
+        thing2_wrist_camera_model="$(arg thing2_wrist_camera_model)"
+        thing2_joint_limits_parameters_file="$(arg thing2_joint_limits_parameters_file)"
+        thing2_kinematics_parameters_file="$(arg thing2_kinematics_parameters_file)"
+        thing2_physical_parameters_file="$(arg thing2_physical_parameters_file)"
+        thing2_visual_parameters_file="$(arg thing2_visual_parameters_file)"
+    >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ur5_workbench>
 </robot>

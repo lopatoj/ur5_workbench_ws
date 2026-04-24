@@ -1,12 +1,17 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find ur5_workbench_description)/urdf/thing_macro.xacro" />
+  <xacro:include
+        filename="$(find ur5_workbench_description)/urdf/thing_macro.xacro"
+    />
 
   <xacro:macro
-    name="ur5_workbench"
-    params="
+        name="ur5_workbench"
+        params="
       parent
       *origin
+
+      static_camera_model:=''
+      static_camera_extrinsics_file:=''
 
       include_ros2_control:=false
       script_filename:=''
@@ -20,6 +25,10 @@
       thing1_physical_parameters_file
       thing1_visual_parameters_file
       thing1_robot_ip:=192.168.50.19
+      thing1_fts_dev:=ttyUSB0
+      thing1_use_fts:=true
+      thing1_gripper_com_port:='/dev/ttyUSB3'
+      thing1_use_gripper:=true
 
       include_thing2:=true
       thing2_wrist_camera_model:=''
@@ -28,8 +37,12 @@
       thing2_physical_parameters_file
       thing2_visual_parameters_file
       thing2_robot_ip:=192.168.50.20
+      thing2_fts_dev:=ttyUSB1
+      thing2_use_fts:=true
+      thing2_gripper_com_port:='/dev/ttyUSB2'
+      thing2_use_gripper:=true
       "
-  >
+    >
     <joint name="table_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}" />
@@ -40,32 +53,51 @@
 
     <xacro:if value="${include_thing1}">
       <xacro:thing
-        name="thing1"
-        parent="table"
-        include_ros2_control="${include_ros2_control}"
-        wrist_camera_model="${thing1_wrist_camera_model}"
-        joint_limits_parameters_file="${thing1_joint_limits_parameters_file}"
-        kinematics_parameters_file="${thing1_kinematics_parameters_file}"
-        physical_parameters_file="${thing1_physical_parameters_file}"
-        visual_parameters_file="${thing1_visual_parameters_file}"
-      >
+                name="thing1"
+                parent="table"
+                include_ros2_control="${include_ros2_control}"
+                robot_ip="${thing1_robot_ip}"
+                script_filename="${script_filename}"
+                input_recipe_filename="${input_recipe_filename}"
+                output_recipe_filename="${output_recipe_filename}"
+                wrist_camera_model="${thing1_wrist_camera_model}"
+                joint_limits_parameters_file="${thing1_joint_limits_parameters_file}"
+                kinematics_parameters_file="${thing1_kinematics_parameters_file}"
+                physical_parameters_file="${thing1_physical_parameters_file}"
+                visual_parameters_file="${thing1_visual_parameters_file}"
+                fts_dev="${thing1_fts_dev}"
+                use_fts="${thing1_use_fts}"
+                gripper_com_port="${thing1_gripper_com_port}"
+                use_gripper="${thing1_use_gripper}"
+            >
         <origin xyz="1.905 0.381 0" rpy="0 0 ${pi/2}" />
       </xacro:thing>
     </xacro:if>
 
     <xacro:if value="${include_thing2}">
       <xacro:thing
-        name="thing2"
-        parent="table"
-        include_ros2_control="${include_ros2_control}"
-        wrist_camera_model="${thing2_wrist_camera_model}"
-        joint_limits_parameters_file="${thing2_joint_limits_parameters_file}"
-        kinematics_parameters_file="${thing2_kinematics_parameters_file}"
-        physical_parameters_file="${thing2_physical_parameters_file}"
-        visual_parameters_file="${thing2_visual_parameters_file}"
-      >
+                name="thing2"
+                parent="table"
+                include_ros2_control="${include_ros2_control}"
+                robot_ip="${thing2_robot_ip}"
+                script_filename="${script_filename}"
+                input_recipe_filename="${input_recipe_filename}"
+                output_recipe_filename="${output_recipe_filename}"
+                wrist_camera_model="${thing2_wrist_camera_model}"
+                joint_limits_parameters_file="${thing2_joint_limits_parameters_file}"
+                kinematics_parameters_file="${thing2_kinematics_parameters_file}"
+                physical_parameters_file="${thing2_physical_parameters_file}"
+                visual_parameters_file="${thing2_visual_parameters_file}"
+                fts_dev="${thing2_fts_dev}"
+                use_fts="${thing2_use_fts}"
+                gripper_com_port="${thing2_gripper_com_port}"
+                use_gripper="${thing2_use_gripper}"
+            >
         <origin xyz="0.381 0.381 0" rpy="0 0 ${pi/2}" />
       </xacro:thing>
+    </xacro:if>
+
+    <xacro:if value="${static_camera_model != ''}">
     </xacro:if>
   </xacro:macro>
 </robot>

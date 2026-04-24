@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="static_camera" params="parent model extrinsics_file">
+  <xacro:include
+          filename="$(find realsense2_description)/urdf/_${model}.urdf.xacro"
+      />
+    <xacro:${model} parent="${parent}" tf_prefix="static_camera_" />
+    <xacro:property name="extrinsics" value="$(eval load_yaml(extrinsics_file))" />
+    <xacro:joint name="static_camera_joint" type="fixed">
+      <origin xyz="${extrinsics['translation']}" rpy="${extrinsics['rotation']}" />
+      <parent link="${parent}" />
+      <child link="static_camera_link" />
+    </xacro:joint>
+  </xacro:macro>
+</robot>

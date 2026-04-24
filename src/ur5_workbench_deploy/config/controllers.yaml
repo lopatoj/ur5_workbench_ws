@@ -8,17 +8,21 @@ controller_manager:
     joint_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
+    gripper_controller:
+      type: robotiq_controllers/RobotiqActivationController
+
 joint_trajectory_controller:
   ros__parameters:
     type: joint_trajectory_controller/JointTrajectoryController
+    # type: ur_controllers/PassthroughTrajectoryController
     joints:
-      - thing1_shoulder_pan_joint
-      - thing1_shoulder_lift_joint
-      - thing1_elbow_joint
-      - thing1_wrist_1_joint
-      - thing1_wrist_2_joint
-      - thing1_wrist_3_joint
-      - thing1_robotiq_85_left_knuckle_joint
+      # - thing1_shoulder_pan_joint
+      # - thing1_shoulder_lift_joint
+      # - thing1_elbow_joint
+      # - thing1_wrist_1_joint
+      # - thing1_wrist_2_joint
+      # - thing1_wrist_3_joint
+      # - thing1_robotiq_85_left_knuckle_joint
       - thing2_shoulder_pan_joint
       - thing2_shoulder_lift_joint
       - thing2_elbow_joint
@@ -31,3 +35,8 @@ joint_trajectory_controller:
     state_interfaces:
       - position
       - velocity
+    # tf_prefix: thing2_
+    # speed_scaling_interface_name: thing2_speed_scaling/speed_scaling_factor
+    # speed_scaling:
+    #   state_interface: thing2_speed_scaling/speed_scaling_factor
+    #   command_interface: thing2_speed_scaling/speed_scaling_factor

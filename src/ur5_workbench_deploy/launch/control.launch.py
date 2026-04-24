@@ -20,7 +20,7 @@ def generate_launch_description():
     arguments = []
     arguments.append(DeclareLaunchArgument("launch_rviz", default_value="true"))
 
-    deploy_package = FindPackageShare("ur5_workbench_mujoco_config")
+    deploy_package = FindPackageShare("ur5_workbench_deploy")
 
     parameters_file = PathJoinSubstitution(
         [
@@ -48,9 +48,11 @@ def generate_launch_description():
     robot_state_publisher_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("ur5_workbench_description"),
-                "launch",
-                "robot_description.launch.py"]
+                [
+                    FindPackageShare("ur5_workbench_description"),
+                    "launch",
+                    "rsp.launch.py",
+                ]
             )
         ),
         launch_arguments={
@@ -58,6 +60,8 @@ def generate_launch_description():
             "script_filename": script_filename,
             "input_recipe_filename": input_recipe_filename,
             "output_recipe_filename": output_recipe_filename,
+            "thing1_fts_dev": "ttyUSB2",
+            "thing1_gripper_com_port": "/dev/ttyUSB3",
         }.items(),
     )
 
@@ -92,6 +96,15 @@ def generate_launch_description():
             parameters_file,
         ],
     )
+    gripper_controller = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "gripper_controller",
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
     rviz_node = Node(
         package="rviz2",
         condition=IfCondition(LaunchConfiguration("launch_rviz")),
@@ -102,12 +115,13 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [
+        arguments
+        + [
             robot_state_publisher_node,
             control_node,
             joint_state_broadcaster,
             joint_trajectory_controller,
+            gripper_controller,
             rviz_node,
         ]
-        + arguments
     )

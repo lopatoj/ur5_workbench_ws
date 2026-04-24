@@ -1,13 +1,25 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro" />
-  <xacro:include filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_ft300.urdf.xacro" />
-  <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
-  <xacro:include filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_fts.ros2_control.xacro" />
-  <xacro:include filename="$(find ur5_workbench_description)/urdf/camera_mount_macro.xacro" />
-  <xacro:include filename="$(find ur_robot_driver)/urdf/ur.ros2_control.xacro" />
+  <xacro:include
+        filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_ft300.urdf.xacro"
+    />
+  <xacro:include
+        filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro"
+    />
+  <xacro:include
+        filename="$(find robotiq_ft_sensor_description)/urdf/robotiq_fts.ros2_control.xacro"
+    />
+  <xacro:include
+        filename="$(find ur5_workbench_description)/urdf/camera_mount_macro.xacro"
+    />
+  <xacro:include
+        filename="$(find ur_robot_driver)/urdf/ur.ros2_control.xacro"
+    />
 
-  <xacro:macro name="thing" params="
+  <xacro:macro
+        name="thing"
+        params="
     name
     parent
     *origin
@@ -20,73 +32,92 @@
     physical_parameters_file
     visual_parameters_file
 
+    use_fts:=true
+    fts_dev:=ttyUSB0
+
+    use_gripper:=true
+    gripper_com_port:='/dev/ttyUSB2'
+
     robot_ip:=''
     script_filename:=''
     input_recipe_filename:=''
     output_recipe_filename:=''
     initial_positions:=${dict(shoulder_pan_joint=0.0,shoulder_lift_joint=-1.57,elbow_joint=0.0,wrist_1_joint=-1.57,wrist_2_joint=0.0,wrist_3_joint=0.0)}
-  ">
-    <xacro:ur_robot
-      name="${name}"
-      tf_prefix="${name}_"
-      parent="${parent}"
-      joint_limits_parameters_file="${joint_limits_parameters_file}"
-      kinematics_parameters_file="${kinematics_parameters_file}"
-      physical_parameters_file="${physical_parameters_file}"
-      visual_parameters_file="${visual_parameters_file}"
+  "
     >
+    <xacro:ur_robot
+            name="${name}"
+            tf_prefix="${name}_"
+            parent="${parent}"
+            joint_limits_parameters_file="${joint_limits_parameters_file}"
+            kinematics_parameters_file="${kinematics_parameters_file}"
+            physical_parameters_file="${physical_parameters_file}"
+            visual_parameters_file="${visual_parameters_file}"
+        >
       <xacro:insert_block name="origin" />
     </xacro:ur_robot>
     <xacro:robotiq_ft300 parent="tool0" tf_prefix="${name}_">
       <origin xyz="0 0 -0.004" rpy="0 0 ${-pi/2}" />
     </xacro:robotiq_ft300>
     <xacro:if value="${wrist_camera_model != ''}">
-      <xacro:include filename="$(find realsense2_description)/urdf/_${wrist_camera_model}.urdf.xacro" />
-      <xacro:camera_mount parent="${name}_robotiq_ft_frame_id" tf_prefix="${name}_">
+      <xacro:include
+                filename="$(find realsense2_description)/urdf/_${wrist_camera_model}.urdf.xacro"
+            />
+      <xacro:camera_mount
+                parent="${name}_robotiq_ft_frame_id"
+                tf_prefix="${name}_"
+            >
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:camera_mount>
-      <xacro:call macro="sensor_${wrist_camera_model}"
-        name="${name}_${wrist_camera_model}"
-        parent="${name}_camera_link"
-      >
-        <origin xyz="0 0.021 0.009" rpy="0 ${-pi/2} ${pi/2}"/>
+      <xacro:call
+                macro="sensor_${wrist_camera_model}"
+                name="${name}_${wrist_camera_model}"
+                parent="${name}_camera_link"
+            >
+        <origin xyz="0 0.021 0.009" rpy="0 ${-pi/2} ${pi/2}" />
       </xacro:call>
       <xacro:robotiq_gripper
-        name="${name}_robotiq_gripper"
-        parent="${name}_tool_link"
-        prefix="${name}_"
-        include_ros2_control="${include_ros2_control}"
-      >
+                name="${name}_robotiq_gripper"
+                parent="${name}_tool_link"
+                prefix="${name}_"
+                include_ros2_control="${include_ros2_control and use_gripper}"
+                com_port="${gripper_com_port}"
+            >
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:robotiq_gripper>
     </xacro:if>
     <xacro:unless value="${wrist_camera_model != ''}">
       <xacro:robotiq_gripper
-        name="${name}_robotiq_gripper"
-        parent="${name}_robotiq_ft_frame_id"
-        prefix="${name}_"
-        include_ros2_control="${include_ros2_control}"
-      >
+                name="${name}_robotiq_gripper"
+                parent="${name}_robotiq_ft_frame_id"
+                prefix="${name}_"
+                include_ros2_control="${include_ros2_control and use_gripper}"
+                com_port="${gripper_com_port}"
+            >
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:robotiq_gripper>
     </xacro:unless>
 
     <!-- ros2_control macros -->
     <xacro:if value="${include_ros2_control}">
-      <xacro:robotiq_fts_ros2_control
-        name="${name}_"
-        tf_prefix="${name}_"
-      />
+      <xacro:if value="${use_fts}">
+        <xacro:robotiq_fts_ros2_control
+                    name="${name}_"
+                    tf_prefix="${name}_"
+                    ftdi_id="${fts_dev}"
+                />
+      </xacro:if>
       <xacro:ur_ros2_control
-        name="${name}_"
-        tf_prefix="${name}_"
-        kinematics_parameters_file="${kinematics_parameters_file}"
-        robot_ip="${robot_ip}"
-        script_filename="${script_filename}"
-        input_recipe_filename="${input_recipe_filename}"
-        output_recipe_filename="${output_recipe_filename}"
-        initial_positions="${initial_positions}"
-      />
+                name="${name}"
+                tf_prefix="${name}_"
+                kinematics_parameters_file="${kinematics_parameters_file}"
+                robot_ip="${robot_ip}"
+                script_filename="${script_filename}"
+                input_recipe_filename="${input_recipe_filename}"
+                output_recipe_filename="${output_recipe_filename}"
+                initial_positions="${initial_positions}"
+                script_sender_port="50002"
+            />
     </xacro:if>
     <joint name="${name}_tcp_joint" type="fixed">
       <origin xyz="0 0 0.135" rpy="0 0 0" />

@@ -64,7 +64,7 @@ USER $USERNAME
 WORKDIR /home/$USERNAME/ur5_workbench_ws
 
 # Add user to video group (GUI apps, camera access)
-RUN sudo usermod --append --groups video $USERNAME
+RUN sudo usermod --append --groups video,dialout,tty $USERNAME
 
 COPY --chown=${USERNAME}:${USERNAME} --from=package-manifests /src/ ./src
 

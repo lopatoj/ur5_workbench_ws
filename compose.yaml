@@ -38,3 +38,4 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $HOME/.Xauthority:/home/er4-user/.Xauthority:ro
       - .:/home/${USER:-ur5_workbench}/ur5_workbench_ws:rw
+      - /dev:/dev
